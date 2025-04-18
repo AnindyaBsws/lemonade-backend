@@ -2,6 +2,7 @@
   "name": "chai-backend",
   "version": "1.0.0",
   "description": "a backened at chai aur code channel - . Youtube",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,5 +13,10 @@
     "chai"
   ],
   "author": "\"Anindya Biswas\"",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "-": "^0.0.1",
+    "D": "^1.0.0",
+    "nodemon": "^3.1.9"
+  }
 }
