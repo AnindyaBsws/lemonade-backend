@@ -5,15 +5,15 @@ import express from "express";
 
 /* Database Connection of an immediately executed async arrow function 
 using try-catch.(approach 1)
-    (In this approach, the connection to the database does'nt
+    (In this approach, the connection to the database doesn't
     pollute any another files or folders, but the index folder is looking so messy
     because of the connection code to the database. That's why, we will use 
-    a professional approach 
-    in approach number 2)
+    a professional approach in approach number 2)
 
-
++++++++++++++  Approach 1  ++++++++++++++
 
 const app =express()
+
 ( async() => {
     try{
 
@@ -77,10 +77,10 @@ be carefull about using it.
 */
 
 
-/* Approach 2
+/* +++++++++++++++++++++++  Approach 2  ++++++++++++++++++++
 In this approach, a index.js is file is created and from there,
 we are collectiong the connection code to the database. Because of this the code looks much cleaner
-that apprach 1. It is much professional to use. */
+than apprach 1. It is much professional to use. */
 
 
 import connectDB from "./db/index.js"; // we need to import from the index.js, so give the full path.
@@ -90,6 +90,16 @@ dotenv.config({
 })
 
 connectDB()
+.then( () => {
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(`Server is running at port : ${process.env.PORT}`);
+        
+    })
+})
+.catch((err) => {
+    console.log("Mongo db connecttion fail!!!", err);
+    
+})
 
 //Now run the code npm run dev
 
