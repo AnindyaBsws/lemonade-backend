@@ -18,7 +18,7 @@ class ApiError extends Error{
         falsy for boolean operations. */
         this.message = message
         this.success = false
-        this.errors = this.errors
+        this.errors = errors
 
         if(stack){
             this.stack = stack
