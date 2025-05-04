@@ -85,6 +85,8 @@ than apprach 1. It is much professional to use. */
 
 import connectDB from "./db/index.js"; // we need to import from the index.js, so give the full path.
 import dotenv from "dotenv"; // Go package.json and write in scripts ' -r dotenv/config --experimental-json-modules'. It will configure every dotenv configuration.
+import {app} from './app.js'
+
 dotenv.config({
     path: './env'
 })
