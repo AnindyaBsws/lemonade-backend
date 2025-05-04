@@ -9,4 +9,4 @@ const storage = multer.diskStorage({
     }
   })
   
-  export const upload = multer({ storage: storage }) // As we are using ES6, we can only write "storage", as the key-valuye is same.
+  export const upload = multer({ storage: storage }) // As we are using ES6, we can only write "storage" as { storage }, as the key-valuye is same.
