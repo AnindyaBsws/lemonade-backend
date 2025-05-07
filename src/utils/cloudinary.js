@@ -34,5 +34,6 @@ const uploadONCloudinary = async (loacalFilePath) => {
         return null;
     }
 }
+export {uploadONCloudinary}
     
      
