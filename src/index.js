@@ -88,7 +88,7 @@ import dotenv from "dotenv"; // Go package.json and write in scripts ' -r dotenv
 import {app} from './app.js'
 
 dotenv.config({
-    path: './env'
+    path: './.env'
 })
 
 connectDB()
