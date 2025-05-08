@@ -24,7 +24,8 @@ const uploadONCloudinary = async (loacalFilePath) => {
         })
         
         //file has been uploaded succesfully
-        console.log("File has uploaded successfully on cloedinary", response.url);
+        // console.log("File has uploaded successfully on cloedinary", response.url);
+        fs.unlinkSync(loacalFilePath)
         return response;
         
     }
