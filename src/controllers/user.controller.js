@@ -124,51 +124,50 @@ const registerUser = asyncHandler(async (req, res) => {
 })
 
 //User Log In
-const loginUser = asyncHandler (async (req, res) => {
-    // Take user data from req body
-    // username or email must be given
-    // take the password and validate
-    // find the user (check if the user registration was done previously)
-    // assign an access token and refresh token 
-    // send cookies
+const loginUser = asyncHandler(async (req, res) =>{
+    // req body -> data
+    // username or email
+    //find the user
+    //password check
+    //access and referesh token
+    //send cookie
 
+    const {email, username, password} = req.body
+    console.log(email);
 
-    //Taking User data from req body
-   const {username, email, password} = req.body
-   
-    //Username or email fill up required
-    if(!username || !email){
-    throw new ApiError(400, "username or email is required")
+    if (!username && !email) {
+        throw new ApiError(400, "username or email is required")
     }
+    
+    // Here is an alternative of above code 
+    // if (!(username || email)) {
+    //     throw new ApiError(400, "username or email is required")
+        
+    // }
 
-    //Finding the user in db and validating the User creation or registration
     const user = await User.findOne({
         $or: [{username}, {email}]
     })
-    if(!user){
-        throw new ApiError(404, "User doesn't exist")
+
+    if (!user) {
+        throw new ApiError(404, "User does not exist")
     }
 
-    //password checking
-    const isPasswordValid = await user.isPasswordCorrect(password)
-    if(!isPasswordValid){
-        throw new ApiError(401, "Password Incorrect")
+   const isPasswordValid = await user.isPasswordCorrect(password)
+
+   if (!isPasswordValid) {
+    throw new ApiError(401, "Invalid user credentials")
     }
-    
-    //Assigning Access & refresh token (As these tokens may be used for multiple times, we will make a method at the top)
-    const {accessToken, refreshToken} = await generateAccessAndRefreshTokens(user._id)
 
-    //we dont want to show the password and refresh token to the user 
-    const loggedInUser = await User.findById(user._id)
-    .select("-password -refreshToken")
+   const {accessToken, refreshToken} = await generateAccessAndRefereshTokens(user._id)
 
-    //Sending Cookies
-    //Some options must be set while giving response in cookies, so that those can only be modified by the server end, not by the user
+    const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
+
     const options = {
         httpOnly: true,
         secure: true
     }
-    
+
     return res
     .status(200)
     .cookie("accessToken", accessToken, options)
@@ -179,10 +178,9 @@ const loginUser = asyncHandler (async (req, res) => {
             {
                 user: loggedInUser, accessToken, refreshToken
             },
-            "User logged in successfully"
+            "User logged In Successfully"
         )
     )
-
 
 })
 
