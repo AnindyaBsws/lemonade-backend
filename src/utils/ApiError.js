@@ -5,9 +5,9 @@ class ApiError extends Error{
         errors= [],
         stack = ""
     ){
-        super(message)
-        this.statusCode = statusCode
-        this.data = null 
+        super(message);
+        this.statusCode = statusCode;
+        this.data = null;
         /*this.data=null :::::Setting a NULL value is appropriate when the 
         actual value is unknown,or when a value is not meaningful. A NULL 
         value is not equivalent to a value of ZERO if the data type is a 
@@ -16,15 +16,16 @@ class ApiError extends Error{
         The null value represents the intentional absence of any object value. 
         It is one of JavaScript's primitive values and is treated as 
         falsy for boolean operations. */
-        this.message = message
-        this.success = false
-        this.errors = errors
+        this.message = message;
+        this.success = false;
+        this.errors = errors;
 
         if(stack){
-            this.stack = stack
+            this.stack = stack;
         }else{
-            Error.captureStackTrace( this, this.constructor)
+            Error.captureStackTrace( this, this.constructor);
         }
     }
 }
-export {ApiError}
+
+export {ApiError};

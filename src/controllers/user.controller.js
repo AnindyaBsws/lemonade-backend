@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import { uploadONCloudinary} from "../utils/cloudinary.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
+import bcrypt from "bcrypt";
 
 //Generating Access and Refresh Token
 const generateAccessAndRefreshTokens = async(userId) => 
@@ -18,7 +19,7 @@ const generateAccessAndRefreshTokens = async(userId) =>
       return {accessToken, refreshToken}
 
     } catch (error) {
-        throw new ApiError(500, "Something went wrong while generating refresh and access tokens")
+        throw new ApiError(500, "Something went wrong while generating refresh and access tokens");
     }
 }
 
@@ -154,12 +155,14 @@ const loginUser = asyncHandler(async (req, res) =>{
     }
 
    const isPasswordValid = await user.isPasswordCorrect(password)
+   console.log(isPasswordValid);
+   
 
    if (!isPasswordValid) {
     throw new ApiError(401, "Invalid user credentials")
     }
 
-   const {accessToken, refreshToken} = await generateAccessAndRefereshTokens(user._id)
+   const {accessToken, refreshToken} = await generateAccessAndRefreshTokens(user._id);
 
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
 
